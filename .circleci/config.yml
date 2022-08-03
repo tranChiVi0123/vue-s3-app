@@ -45,7 +45,7 @@ workflows:
       - build_and_test
       - deploy-to-s3:
           requires:
-            - build_and_run_test
+            - build_and_test
           filters:
             branches:
               only: master
