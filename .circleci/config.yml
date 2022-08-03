@@ -2,7 +2,7 @@ version: 2.1
 default: &default
   working_directory: ~/vue_s3_app
   docker:
-    - image: cimg/node:15.0.1-browsers
+    - image: cimg/node:18.1.0-browsers
 
 jobs:
   build_and_test:
