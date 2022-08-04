@@ -25,25 +25,19 @@ jobs:
           root: .
           paths: [dist]
   deploy-to-s3:
-    name: Upload to AWS S3
-    machine:
-      image: circleci/classic:latest
-    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
-    permissions:
-      id-token: write
-      contents: read
+    runs-on: ubuntu-latest
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/vue_s3_app
-      - name: Configure AWS credentials from Test account
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: "Configure AWS credentials"
+        uses: aws-actions/configure-aws-credentials@master
         with:
           role-to-assume: arn:aws:iam::459716160169:role/Terraform-BackendS3BackendRole
           aws-region: ap-northeast-1
-      - name: Copyfile AWS credential from Test account
-        run: |
-          aws s3 sync ./dist s3://vue-s3-web
+
+      - name: upload
+        run: aws s3 cp --recursive ./dist s3://vue-s3-web
 workflows:
   version: 2
   build_and_run_test:
