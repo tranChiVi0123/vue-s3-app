@@ -26,11 +26,14 @@ jobs:
           paths: [dist]
   deploy-to-s3:
     executor: aws-cli/default
+
     permissions:
       id-token: write
       contents: read
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/vue_s3_app
       - aws-cli/setup:
           profile-name: WEB IDENTITY PROFILE
           role-arn: arn:aws:iam::459716160169:role/Terraform-BackendS3BackendRole
