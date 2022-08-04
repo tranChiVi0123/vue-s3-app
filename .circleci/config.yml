@@ -26,7 +26,6 @@ jobs:
           paths: [dist]
   deploy-to-s3:
     executor: aws-cli/default
-
     permissions:
       id-token: write
       contents: read
@@ -38,7 +37,6 @@ jobs:
           profile-name: WEB IDENTITY PROFILE
           role-arn: arn:aws:iam::459716160169:role/Terraform-BackendS3BackendRole
           role-session-name: example-session
-      - run: echo "Hello WORLD"
       # - run:
       #     name: Upload
       #     command: |
