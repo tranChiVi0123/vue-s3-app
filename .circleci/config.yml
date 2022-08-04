@@ -31,8 +31,9 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/vue_s3_app
+      - aws-cli/install
       - aws-cli/setup:
-          profile-name: WEB IDENTITY PROFILE
+          profile-name: vue s3 web
           role-arn: arn:aws:iam::459716160169:role/circleci
           role-session-name: example-session
       - run: aws sts get-caller-identity
