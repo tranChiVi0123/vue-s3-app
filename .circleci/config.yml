@@ -27,9 +27,6 @@ jobs:
 
   deploy-to-s3:
     executor: aws-cli/default
-    permissions:
-      id-token: write
-      contents: read
     steps:
       - checkout
       - attach_workspace:
