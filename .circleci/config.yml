@@ -35,6 +35,7 @@ jobs:
           profile-name: WEB IDENTITY PROFILE
           role-arn: arn:aws:iam::459716160169:role/Terraform-BackendS3BackendRole
           role-session-name: example-session
+      - run: aws sts get-caller-identity
       - run:
           name: Upload
           command: |
