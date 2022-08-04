@@ -47,9 +47,9 @@ workflows:
   build_and_run_test:
     jobs:
       - build_and_test
-      - deploy-to-s3:
-          requires:
-            - build_and_test
-          filters:
-            branches:
-              only: master
+      # - deploy-to-s3:
+      #     requires:
+      #       - build_and_test
+      #     filters:
+      #       branches:
+      #         only: master
