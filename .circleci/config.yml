@@ -35,7 +35,6 @@ jobs:
       - aws-cli/setup:
           profile-name: vue s3 web
           role-arn: arn:aws:iam::459716160169:role/circleci
-          role-session-name: example-session
       - run: aws sts get-caller-identity
       - run:
           name: Upload
