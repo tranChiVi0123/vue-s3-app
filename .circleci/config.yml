@@ -26,7 +26,8 @@ jobs:
           paths: [dist]
   deploy-to-s3:
     name: Upload to AWS S3
-    runs-on: ubuntu-latest
+    machine:
+      image: circleci/classic:latest
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
