@@ -25,7 +25,6 @@ jobs:
           root: .
           paths: [dist]
   deploy-to-s3:
-    runs-on: ubuntu-latest
     machine:
       image: unbutu:latest
       docker_layer_caching: true
