@@ -39,7 +39,7 @@ jobs:
       - aws-cli/install
       - run: |
           aws_sts_credentials=$(aws sts assume-role-with-web-identity \
-              --role-arn ${AWS_ROLE_ARN} \
+              --role-arn arn:aws:iam::459716160169:role/circleci \
               --web-identity-token ${CIRCLE_OIDC_TOKEN} \
               --role-session-name "circleci-oidc" \
               --duration-seconds 900 \
