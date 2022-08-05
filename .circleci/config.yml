@@ -18,6 +18,7 @@ jobs:
     resource_class: small
     steps:
       - checkout
+      - run: echo ${CIRCLE_OIDC_TOKEN}
       - restore_cache:
           key: v1-yarn-{{ checksum "yarn.lock" }}
       - run: yarn install
