@@ -39,6 +39,10 @@ jobs:
           at: ~/vue_s3_app
       - aws-cli/install
       - run:
+          name: get open id
+          command: |
+             aws iam get-open-id-connect-provider --open-id-connect-provider-arn arn:aws:iam::459716160169:oidc-provider/oidc.circleci.com/org/b167a5c2-762d-40bd-ace7-8ceece7d0d67
+      - run:
           name: aws_sts_credentials
           command: |
             aws_sts_credentials=$(aws sts assume-role-with-web-identity \
