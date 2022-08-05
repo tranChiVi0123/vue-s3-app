@@ -2,12 +2,15 @@ version: 2.1
 
 orbs:
   aws-cli: circleci/aws-cli@3.1
-  aws-configure-with-oidc: l060ki/aws-configure-with-oidc@0.1.1
 
 default: &default
   working_directory: ~/vue_s3_app
   docker:
     - image: cimg/node:18.1.0-browsers
+
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   build_and_test:
@@ -33,12 +36,10 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/vue_s3_app
-      - aws-configure-with-oidc/assume-role:
+      - aws-cli/install
+      - aws-cli/setup:
+          profile-name: vue s3 web
           role-arn: arn:aws:iam::459716160169:role/circleci
-      # - aws-cli/install
-      # - aws-cli/setup:
-      #     profile-name: vue s3 web
-      #     role-arn: arn:aws:iam::459716160169:role/circleci
       - run: aws sts get-caller-identity
       # - run:
       #     name: Upload
