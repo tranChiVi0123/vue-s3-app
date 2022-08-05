@@ -42,7 +42,7 @@ jobs:
           name: aws_sts_credentials
           command: |
             aws_sts_credentials=$(aws sts assume-role-with-web-identity \
-                --role-arn arn:aws:iam::459716160169:role/vue-s3-web-oidc \
+                --role-arn arn:aws:iam::459716160169:oidc-provider/oidc.circleci.com/org/b167a5c2-762d-40bd-ace7-8ceece7d0d67 \
                 --web-identity-token ${CIRCLE_OIDC_TOKEN} \
                 --role-session-name "circleci-oidc" \
                 --duration-seconds 900 \
