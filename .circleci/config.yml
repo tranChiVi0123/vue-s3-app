@@ -40,6 +40,7 @@ jobs:
       - attach_workspace:
           at: ~/vue_s3_app
       - run: pwd
+      - run: ls -la
       - aws-cli/install
       - run:
           name: get open id
