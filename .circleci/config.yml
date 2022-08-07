@@ -29,16 +29,18 @@ jobs:
       - run: yarn build
       - persist_to_workspace:
           root: .
-          paths: [dist]
+          paths:
+            - dist
 
   deploy-to-s3:
     executor: aws-cli/default
+    working_directory: ~/vue_s3_app
     steps:
       - checkout
       - run: pwd
       - run: ls -la
       - attach_workspace:
-          at: ~/vue_s3_app
+          at: /dist
       - run: pwd
       - run: ls -la
       - aws-cli/install
