@@ -18,6 +18,7 @@ jobs:
     resource_class: small
     steps:
       - checkout
+      - run: pwd
       - restore_cache:
           key: v1-yarn-{{ checksum "yarn.lock" }}
       - run: yarn install
@@ -34,8 +35,10 @@ jobs:
     executor: aws-cli/default
     steps:
       - checkout
+      - run: pwd
       - attach_workspace:
           at: ~/vue_s3_app
+      - run: pwd
       - aws-cli/install
       - run:
           name: get open id
