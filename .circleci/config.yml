@@ -40,11 +40,11 @@ jobs:
           at: ~/vue_s3_app/dist
       - aws-cli/install
       - run:
-          name: get open id
+          name: Get open id
           command: |
              aws iam get-open-id-connect-provider --open-id-connect-provider-arn arn:aws:iam::459716160169:oidc-provider/oidc.circleci.com/org/b167a5c2-762d-40bd-ace7-8ceece7d0d67
       - run:
-          name: assume role
+          name: Assume role
           command: |
             aws_sts_credentials=$(aws sts assume-role-with-web-identity \
                 --role-arn arn:aws:iam::459716160169:role/circleci \
@@ -61,7 +61,7 @@ jobs:
       - run:
           name: Upload
           command: |
-            aws s3 cp --recursive ./dist/ s3://vue-s3-web-s3-backend --region "ap-northeast-1"
+            aws s3 cp --recursive ~/vue_s3_app/dist/ s3://vue-s3-web-s3-backend --region "ap-northeast-1"
 
 workflows:
   version: 2
