@@ -40,7 +40,7 @@ jobs:
       - run: pwd
       - run: ls -la
       - attach_workspace:
-          at: /dist
+          at: ~/vue_s3_app/dist
       - run: pwd
       - run: ls -la
       - aws-cli/install
