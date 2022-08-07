@@ -18,7 +18,6 @@ jobs:
     resource_class: small
     steps:
       - checkout
-      - run: pwd
       - restore_cache:
           key: v1-yarn-{{ checksum "yarn.lock" }}
       - run: yarn install
@@ -37,12 +36,8 @@ jobs:
     working_directory: ~/vue_s3_app
     steps:
       - checkout
-      - run: pwd
-      - run: ls -la
       - attach_workspace:
           at: ~/vue_s3_app/dist
-      - run: pwd
-      - run: ls -la
       - aws-cli/install
       - run:
           name: get open id
@@ -66,7 +61,7 @@ jobs:
       - run:
           name: Upload
           command: |
-            aws s3 cp --recursive ./dist s3://vue-s3-web-s3-backend --region "ap-northeast-1"
+            aws s3 cp --recursive ./dist/ s3://vue-s3-web-s3-backend --region "ap-northeast-1"
 
 workflows:
   version: 2
