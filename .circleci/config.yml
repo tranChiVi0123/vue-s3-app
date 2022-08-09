@@ -57,7 +57,9 @@ jobs:
       - run:
           name: Upload
           command: |
-            aws s3 sync ~/vue_s3_app/dist/* s3://test-marketing-lp-front --region "ap-northeast-1"
+            AWS_S3_PATHS=$(aws s3 ls)
+            SUFFIX =${AWS_S3_PATHS##*test-marketing-lp-front}
+            aws s3 sync ~/vue_s3_app/dist/* s3://test-marketing-lp-front${SUFFIX} --region "ap-northeast-1"
 
 workflows:
   version: 2
