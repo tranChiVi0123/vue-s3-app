@@ -61,7 +61,7 @@ jobs:
 
 workflows:
   version: 2
-  build_and_run_test:
+  deploy_to_stg:
     jobs:
       - build_and_test:
           context: common_context
@@ -72,3 +72,14 @@ workflows:
           filters:
             branches:
               only: master
+  deploy_to_prod:
+    jobs:
+      - build_and_test:
+          context: common_context
+      - deploy-to-s3:
+          context: common_context
+          filters:
+            tags:
+              only: /release-.*/
+            branches:
+              ignore: /.*/
