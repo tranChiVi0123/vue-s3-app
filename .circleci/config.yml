@@ -36,6 +36,7 @@ jobs:
     working_directory: ~/vue_s3_app
     steps:
       - checkout
+      - run: pwd && ls -la
       - attach_workspace:
           at: ~/vue_s3_app/dist
       - aws-cli/install
