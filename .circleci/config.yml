@@ -69,7 +69,7 @@ workflows:
       - deploy-to-s3:
           context: deploy_mfx_marketing_lp
           env: test
-          resource: ~/vue_s3_app/dist/*
+          resource: dist/*
           destination: MSAD/app
           requires:
             - build_and_test
