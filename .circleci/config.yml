@@ -59,7 +59,7 @@ jobs:
           command: |
             AWS_S3_PATHS=$(aws s3 ls)
             SUFFIX=${AWS_S3_PATHS##*<<parameters.env>>-marketing-lp-front}
-            aws s3 sync ./* s3://<<parameters.env>>-marketing-lp-front${SUFFIX}/<<parameters.destination>> --region $AWS_REGION_NAME
+            aws s3 sync <<parameters.resource>> s3://<<parameters.env>>-marketing-lp-front${SUFFIX}/<<parameters.destination>> --region $AWS_REGION_NAME
 
 workflows:
   version: 2
