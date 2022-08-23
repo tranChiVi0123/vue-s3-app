@@ -40,7 +40,7 @@ jobs:
           at: ~/vue_s3_app/dist
       - aws-cli/install
       - aws-cli/setup:
-          role-arn: "arn:aws:iam::459716160169:role/circleci"
+          role-arn: "arn:aws:iam::${IAM_ID_TEST}:role/${IAM_ROLE_TEST}"
           role-session-name: "circleci-oidc"
       - run: aws sts get-caller-identity
       - run:
@@ -55,9 +55,9 @@ workflows:
   deploy_to_stg:
     jobs:
       - build_and_test:
-          context: common_context
+          context: deploy_mfx_marketing_lp
       - deploy-to-s3:
-          context: common_context
+          context: deploy_mfx_marketing_lp
           requires:
             - build_and_test
           filters:
@@ -66,9 +66,9 @@ workflows:
   deploy_to_prod:
     jobs:
       - build_and_test:
-          context: common_context
+          context: deploy_mfx_marketing_lp
       - deploy-to-s3:
-          context: common_context
+          context: deploy_mfx_marketing_lp
           filters:
             tags:
               only: /release-.*/
