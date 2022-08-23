@@ -34,6 +34,15 @@ jobs:
   deploy-to-s3:
     executor: aws-cli/default
     working_directory: ~/vue_s3_app
+    environment:
+      AWS_REGION_NAME: ap-northeast-1
+    parameters:
+      resource:
+        type: string
+      env:
+        type: string
+      destination:
+        type: string
     steps:
       - checkout
       - run: pwd && ls -la
@@ -43,13 +52,13 @@ jobs:
       - aws-cli/setup:
           role-arn: "arn:aws:iam::${IAM_ID_TEST}:role/${IAM_ROLE_TEST}"
           role-session-name: "circleci-oidc"
-      - run: aws sts get-caller-identity
+      # - run: aws sts get-caller-identity
       - run:
           name: Upload
           command: |
             AWS_S3_PATHS=$(aws s3 ls)
-            SUFFIX=${AWS_S3_PATHS##*test-marketing-lp-front}
-            aws s3 sync ~/vue_s3_app/dist/* s3://test-marketing-lp-front${SUFFIX} --region "ap-northeast-1"
+            SUFFIX=${AWS_S3_PATHS##*<<parameters.env>>-marketing-lp-front}
+            aws s3 sync <<parameters.resource>> s3://<<parameters.env>>-marketing-lp-front${SUFFIX}/<<parameters.destination>> --region $AWS_REGION_NAME
 
 workflows:
   version: 2
@@ -59,19 +68,23 @@ workflows:
           context: deploy_mfx_marketing_lp
       - deploy-to-s3:
           context: deploy_mfx_marketing_lp
+          env: test
+          resource: ~/vue_s3_app/dist/*
+          destination: MSAD/app
           requires:
             - build_and_test
           filters:
             branches:
               only: master
-  deploy_to_prod:
-    jobs:
-      - build_and_test:
-          context: deploy_mfx_marketing_lp
-      - deploy-to-s3:
-          context: deploy_mfx_marketing_lp
-          filters:
-            tags:
-              only: /release-.*/
-            branches:
-              ignore: /.*/
+
+  # deploy_to_prod:
+  #   jobs:
+  #     - build_and_test:
+  #         context: deploy_mfx_marketing_lp
+  #     - deploy-to-s3:
+  #         context: deploy_mfx_marketing_lp
+  #         filters:
+  #           tags:
+  #             only: /release-.*/
+  #           branches:
+  #             ignore: /.*/
