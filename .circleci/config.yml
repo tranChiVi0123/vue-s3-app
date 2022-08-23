@@ -53,19 +53,19 @@ jobs:
           role-arn: "arn:aws:iam::${IAM_ID_TEST}:role/${IAM_ROLE_TEST}"
           role-session-name: "circleci-oidc"
       # - run: aws sts get-caller-identity
+      - run: pwd && ls -la
       - run:
-          name: Upload
+          name: Upload dist to AWS.S3 <<parameters.destination>>
           command: |
             AWS_S3_PATHS=$(aws s3 ls)
             SUFFIX=${AWS_S3_PATHS##*<<parameters.env>>-marketing-lp-front}
-            aws s3 sync <<parameters.resource>> s3://<<parameters.env>>-marketing-lp-front${SUFFIX}/<<parameters.destination>> --region $AWS_REGION_NAME
+            aws s3 sync ./* s3://<<parameters.env>>-marketing-lp-front${SUFFIX}/<<parameters.destination>> --region $AWS_REGION_NAME
 
 workflows:
   version: 2
   deploy_to_stg:
     jobs:
-      - build_and_test:
-          context: deploy_mfx_marketing_lp
+      - build_and_test
       - deploy-to-s3:
           context: deploy_mfx_marketing_lp
           env: test
