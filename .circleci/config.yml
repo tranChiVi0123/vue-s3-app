@@ -47,7 +47,7 @@ jobs:
       - checkout
       - run: pwd && ls -la
       - attach_workspace:
-          at: ~/
+          at: ~/vue_s3_app
       - aws-cli/install
       - aws-cli/setup:
           role-arn: "arn:aws:iam::${IAM_ID_TEST}:role/${IAM_ROLE_TEST}"
