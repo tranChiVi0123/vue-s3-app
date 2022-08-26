@@ -29,7 +29,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - /
+            - dist
 
   deploy-to-s3:
     executor: aws-cli/default
@@ -47,7 +47,7 @@ jobs:
       - checkout
       - run: pwd && ls -la
       - attach_workspace:
-          at: ~/vue_s3_app/dist
+          at: ~/
       - aws-cli/install
       - aws-cli/setup:
           role-arn: "arn:aws:iam::${IAM_ID_TEST}:role/${IAM_ROLE_TEST}"
