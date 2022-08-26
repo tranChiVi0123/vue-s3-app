@@ -27,9 +27,9 @@ jobs:
           key: v1-yarn-{{ checksum "yarn.lock" }}
       - run: yarn build
       - persist_to_workspace:
-          root: .
+          root: ~/vue_s3_app/dist
           paths:
-            - dist
+            - /
 
   deploy-to-s3:
     executor: aws-cli/default
