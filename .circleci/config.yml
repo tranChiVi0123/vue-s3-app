@@ -27,7 +27,7 @@ jobs:
           key: v1-yarn-{{ checksum "yarn.lock" }}
       - run: yarn build
       - persist_to_workspace:
-          root: ~/dist
+          root: .
           paths:
             - /
 
