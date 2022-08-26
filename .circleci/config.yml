@@ -62,7 +62,7 @@ jobs:
             SUFFIX=${AWS_S3_PATHS##*<<parameters.env>>-marketing-lp-front}
             echo $SUFFIX
             echo $AWS_REGION_NAME
-            aws s3 sync --region $AWS_REGION_NAME <<parameters.resource>> s3://<<parameters.env>>-marketing-lp-front${SUFFIX}/<<parameters.destination>> 
+            aws s3 sync --region $AWS_REGION_NAME ~/vue_s3_app/<<parameters.resource>> s3://<<parameters.env>>-marketing-lp-front${SUFFIX}/<<parameters.destination>> 
 
 workflows:
   version: 2
