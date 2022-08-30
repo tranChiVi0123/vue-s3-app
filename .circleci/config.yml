@@ -18,6 +18,21 @@ jobs:
     resource_class: small
     steps:
       - checkout
+      - run:
+          name: Check pipeline trigger
+          command: |
+            echo <<pipeline.id>>
+            echo <<pipeline.number>>
+            echo <<pipeline.project.git_url>>
+            echo <<pipeline.project.type>>
+            echo <<pipeline.git.tag>>
+            echo <<pipeline.git.branch>>
+            echo <<pipeline.git.revision>>
+            echo <<pipeline.git.base_revision>>
+            echo <<pipeline.in_setup>>
+            echo <<pipeline.trigger_source>>
+            echo <<pipeline.schedule.name>>
+            echo <<pipeline.schedule.id>>
       - restore_cache:
           key: v1-yarn-{{ checksum "yarn.lock" }}
       - run: yarn install
