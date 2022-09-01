@@ -106,6 +106,6 @@ workflows:
           destination: MSAD/app
           filters:
             tags:
-              only: /release-*/
+              only: /release-.*/
             branches:
               ignore: /.*/
