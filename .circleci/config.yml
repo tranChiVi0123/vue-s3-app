@@ -95,14 +95,14 @@ workflows:
             branches:
               only: master
 
-  # deploy_to_prod:
-  #   jobs:
-  #     - build_and_test:
-  #         context: deploy_mfx_marketing_lp
-  #     - deploy-to-s3:
-  #         context: deploy_mfx_marketing_lp
-  #         filters:
-  #           tags:
-  #             only: /release-.*/
-  #           branches:
-  #             ignore: /.*/
+  deploy_to_prod:
+    jobs:
+      - build_and_test:
+          context: deploy_mfx_marketing_lp
+      - deploy-to-s3:
+          context: deploy_mfx_marketing_lp
+          filters:
+            tags:
+              only: /release-*/
+            branches:
+              ignore: /.*/
