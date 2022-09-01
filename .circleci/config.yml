@@ -101,6 +101,9 @@ workflows:
           context: deploy_mfx_marketing_lp
       - deploy-to-s3:
           context: deploy_mfx_marketing_lp
+          env: test
+          resource: dist/
+          destination: MSAD/app
           filters:
             tags:
               only: /release-*/
